@@ -1,9 +1,7 @@
 const fs = require("fs");
 const publicDirectory = process.cwd()+"/public";
 
-var dinamicRoutes={
-	'ruta1': function() { return 1}
-};
+var dinamicRoutes={};
 
 function Request(req, res){
 	this.req = req;
@@ -32,14 +30,12 @@ Request.prototype.staticFile = function(){
 }
 
 Request.prototype.dinamicFile = function(){
-	console.log("is dinamic?");
 	var _this = this;
-	try{
-  		content = server.get(_this.req.url, );
-  		return _this.res.end(content);
-  	}catch(e){
-	  	return null;
-	  }
+	console.log("is dinamic?");
+
+	if(typeof dinamicRoutes[_this.req.url]!="undefined"){
+		return dinamicRoutes[_this.req.url](_this.req, _this.res)
+	}else return null; //lortmorris
 }
 
 Request.prototype.notFound = function(){
@@ -57,6 +53,6 @@ function server(){
 }
 
 server.prototype.get = function(path, cb){
-	dinamicRoutes[path] = cb;
+	dinamicRoutes[path]=cb;
 }
 module.exports = server;

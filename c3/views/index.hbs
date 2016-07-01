@@ -1,0 +1,13 @@
+<h1>Alta de usuario {{date}}</h1> 
+<form method="post" action="/save">
+	<p>Nombre: <input type="text" name="name" value="{{data.name}}" /></p>
+	<p>Edad: <input type="text" name="age" value="{{data.age}}" /></p>
+	<p>DNI: <input type="text" name="dni" value="{{data.dni}}" /></p>
+	<p><input type="submit" value="Add"  /></p>
+</form>
+
+<div>
+	{{#each persons}}
+		<p>{{this.name}} - {{this.age}} - {{this.dni}} <a href="/{{this._id}}">Edit</a></p>
+	{{/each}}
+</div>
